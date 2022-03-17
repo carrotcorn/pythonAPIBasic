@@ -1,3 +1,4 @@
+from xml.dom import NotFoundErr
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request
 app = Flask(__name__)
@@ -47,3 +48,13 @@ def add_drink():
     db.session.add(drink)
     db.session.commit()
     return {'id': drink.id}
+
+
+@app.route('/drinks/<id>', methods=['DELETE'])
+def delete_drink(id):
+    drink = Drink.query.get(id)
+    if drink is None:
+        return {"error": "not found"}
+    db.session.delete(drink)
+    db.session.commit()
+    return {"message": f"YEETED {drink.name}"}
