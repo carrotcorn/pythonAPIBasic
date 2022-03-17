@@ -58,3 +58,15 @@ def delete_drink(id):
     db.session.delete(drink)
     db.session.commit()
     return {"message": f"YEETED {drink.name}"}
+
+
+@app.route('/drinks/<id>', methods=['PUT'])
+def edit_drink(id):
+    drink = Drink.query.get(id)
+    if drink is None:
+        return {"error": "not found"}
+
+    drink.name = request.get_json().get('name')
+    drink.description = request.get_json().get('description')
+    db.session.commit()
+    return{"message": f"Updated {drink.name}"}
