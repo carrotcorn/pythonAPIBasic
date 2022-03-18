@@ -1,4 +1,4 @@
-from xml.dom import NotFoundErr
+
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request
 app = Flask(__name__)
@@ -67,6 +67,7 @@ def edit_drink(id):
         return {"error": "not found"}
 
     drink.name = request.get_json().get('name')
-    drink.description = request.get_json().get('description')
+    drink.description = request.get_json().get
+
     db.session.commit()
     return{"message": f"Updated {drink.name}"}
